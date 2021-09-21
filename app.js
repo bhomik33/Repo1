@@ -8,7 +8,7 @@ const middleware = require('./middleware');
 // executing the express to use the express methods
 const app = express();
 
-const URL = 'mongodb+srv://bkinger:nFqls6bGnaf6CVsI@cluster0.fbz0o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const URL = 'mongodb+srv://bkinger:<password>@cluster0.fbz0o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 // connecting to MongoDB database 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology: true});
 const db = mongoose.connection;
