@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const ejsMate = require('ejs-mate');
 const middleware = require('./middleware');
+const methodOverride = require('method-override');
 
 // executing the express to use the express methods
 const app = express();
 
-const URL = 'mongodb+srv://bkinger:<password>@cluster0.fbz0o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const URL = "";
 // connecting to MongoDB database 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -45,16 +46,26 @@ app.use(express.urlencoded({ extended: true }));
 const registerRoutes = require('./routes/registerRoutes.js');
 const loginRoutes = require('./routes/loginRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
+const logoutRoutes = require('./routes/logoutRoutes.js');
+const viewProductRoutes = require('./routes/viewProductRoutes.js');
 
-app.use('/product', productRoutes);
+app.use(methodOverride('_method'));
+app.use('/products', middleware.isAuthenticated, viewProductRoutes);
+app.use('/product', middleware.isAuthenticated, productRoutes);
 app.use('/register', registerRoutes);
-app.use('/login', loginRoutes);
+app.use('/login',  loginRoutes);
+app.use('/logout', logoutRoutes );
 
 
 app.get('/home',middleware.isAuthenticated, (req,res,next) => {
     res.render('home');
 } )
+app.get('/', (req,res,next) => {
+    res.redirect('/login');
+})
+
 //Listening to port 3000
-app.listen(5000, () => {
-    console.log('Server is running on port 3000');
+const port = 5000
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 })
