@@ -25,17 +25,9 @@
             </div>
           </div>
         </div>
-      </nav>
-      
+      </nav>     
     <div class="container">
-      
         <div class="row mt-5">
-          <div>
-            <span> <a href="/products"> <button class='btn btn-info mt-5'>List View</button></a></span>
-            <span><a href="/products/box"> <button class='btn btn-info mt-5'>Box View (Edit/Delete Mode)</button></a></span>
-          </div>
-         
-          
           <table class="product-table" width="300"   style="margin-top: 60px;" border="1">
             <tr style="border-bottom: 2px solid black;">
               <td><b>Product</b></td>
@@ -43,22 +35,19 @@
               <td><b>Brand</b></td>
               <td><b>Cost</b></td>
               <td><b>Quantity</b></td>
+              <td><b>Datetime</b></td>
             </tr>
-            
-            
-            <% for(let product of products) { %> 
+            <% for(let sale of sales) { %> 
               <tr style="border-bottom: 1px solid black;">
-                <td><%= product.name %> </td>
-                <td><%= product.type %> </td>
-                <td><%= product.brand %> </td>
-                <td>$ <%= product.cost %> </td>
-                <td><%= product.quantity %> </td>
+                <td><%=sale.name %> </td>
+                <td><%=sale.type %> </td>
+                <td><%=sale.brand %> </td>
+                <td>$ <%= sale.cost %> </td>
+                <td><%=sale.quantity %> </td>
+                <td><%=sale.datetime %> </td>
               </tr>
           <% } %> 
-        
           </table>
-        
-
        </div>
   </div>
 </body>

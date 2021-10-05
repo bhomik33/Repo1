@@ -30,34 +30,32 @@
     <div class="container">
       
         <div class="row mt-5">
-          <div>
-            <span> <a href="/products"> <button class='btn btn-info mt-5'>List View</button></a></span>
-            <span><a href="/products/box"> <button class='btn btn-info mt-5'>Box View (Edit/Delete Mode)</button></a></span>
-          </div>
-         
-          
-          <table class="product-table" width="300"   style="margin-top: 60px;" border="1">
-            <tr style="border-bottom: 2px solid black;">
-              <td><b>Product</b></td>
-              <td><b>Type</b></td>
-              <td><b>Brand</b></td>
-              <td><b>Cost</b></td>
-              <td><b>Quantity</b></td>
-            </tr>
-            
-            
-            <% for(let product of products) { %> 
-              <tr style="border-bottom: 1px solid black;">
-                <td><%= product.name %> </td>
-                <td><%= product.type %> </td>
-                <td><%= product.brand %> </td>
-                <td>$ <%= product.cost %> </td>
-                <td><%= product.quantity %> </td>
-              </tr>
-          <% } %> 
-        
-          </table>
-        
+            <div>
+                <span> <a href="/products"> <button class='btn btn-info mt-5'>List View</button></a></span>
+                <span><a href="/products/box"> <button class='btn btn-info mt-5'>Box View (Edit/Delete Mode)</button></a></span>
+              </div>
+     
+              <% if (products.length > 0) { %> 
+                    <% for(let product of products) { %> 
+                        <div class="card mt-2" style="width: 30rem; margin-left: auto; margin-top: 10px;">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= product.name %> </h5>
+                              <h6 class="card-subtitle mb-2 text-muted"><%= product.type %> </h6>
+                              <p class="card-text"><%= product.brand %> </p>
+                              <p class="card-text">$ <%= product.cost %>/unit </p>
+                              <p class="card-text"><%= product.quantity %> </p>
+                              <a href="/product/<%= product._id %>/edit" class="card-link">Edit product</a>
+                              <form class="d-inline" style="margin-left: 30px;" action="/product/<%= product._id %>?_method=DELETE" method="POST">
+                                <button class='btn btn-danger'>Delete</button>
+                            </form>
+                            </div>
+                          </div>
+                    <% } %> 
+    
+                 
+            <% } else  { %>
+                <h1> No products to show</h1>
+            <% } %> 
 
        </div>
   </div>
