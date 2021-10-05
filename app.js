@@ -9,7 +9,7 @@ const methodOverride = require('method-override');
 // executing the express to use the express methods
 const app = express();
 
-const URL = "";
+const URL = '';
 // connecting to MongoDB database 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -48,20 +48,24 @@ const loginRoutes = require('./routes/loginRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
 const logoutRoutes = require('./routes/logoutRoutes.js');
 const viewProductRoutes = require('./routes/viewProductRoutes.js');
+const salesRoutes = require('./routes/salesRoutes.js');
+const viewSalesRoutes = require('./routes/viewSalesRoutes.js');
 
 app.use(methodOverride('_method'));
 app.use('/products', middleware.isAuthenticated, viewProductRoutes);
 app.use('/product', middleware.isAuthenticated, productRoutes);
 app.use('/register', registerRoutes);
 app.use('/login',  loginRoutes);
+app.use('/sales',middleware.isAuthenticated, salesRoutes );
+app.use('/viewSales', middleware.isAuthenticated, viewSalesRoutes );
 app.use('/logout', logoutRoutes );
 
 
 app.get('/home',middleware.isAuthenticated, (req,res,next) => {
-    res.render('home');
+    res.render('sales');
 } )
 app.get('/', (req,res,next) => {
-    res.redirect('/login');
+    res.render('users/login');
 })
 
 //Listening to port 3000
