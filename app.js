@@ -50,6 +50,7 @@ const logoutRoutes = require('./routes/logoutRoutes.js');
 const viewProductRoutes = require('./routes/viewProductRoutes.js');
 const salesRoutes = require('./routes/salesRoutes.js');
 const viewSalesRoutes = require('./routes/viewSalesRoutes.js');
+const viewSalesForecastRoutes = require('./routes/salesForecastRoutes.js');
 
 app.use(methodOverride('_method'));
 app.use('/products', middleware.isAuthenticated, viewProductRoutes);
@@ -59,6 +60,7 @@ app.use('/login',  loginRoutes);
 app.use('/sales',middleware.isAuthenticated, salesRoutes );
 app.use('/viewSales', middleware.isAuthenticated, viewSalesRoutes );
 app.use('/logout', logoutRoutes );
+app.use('/viewSalesForecast', viewSalesForecastRoutes );
 
 
 app.get('/home',middleware.isAuthenticated, (req,res,next) => {
