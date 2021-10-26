@@ -13,7 +13,7 @@ router.post('/', async(req,res,next) => {
     const email = req.body.loginEmail.trim();
     const userPassword = req.body.loginPassword;
     const payload = req.body;
-    console.log(req.body)
+
 
     if (email && userPassword) {
         const user = await User.findOne({

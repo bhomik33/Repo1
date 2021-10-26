@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../schemas/productSchema.js');
+const products = require('./seeds/products.js');
 
 // get request to show the add product form
-router.get('/', (req,res,next) => {
+router.get('/', async(req,res,next) => {
     const payload = null;
     res.render('product', {payload})
 })
@@ -21,9 +22,10 @@ router.post('/:id', async(req,res,next) => {
     const name = req.body.productName;
     const type = req.body.productType;
     const brand = req.body.productBrand;
+    const cost = req.body.productCost;
     const quantity = req.body.productQuantity;
 
-    const product = await Product.findByIdAndUpdate(id,{name,type,brand,quantity});
+    const product = await Product.findByIdAndUpdate(id,{name,type,brand,cost,quantity});
     await product.save();
     res.redirect('/products');
     
@@ -44,15 +46,16 @@ router.post('/', async (req,res,next) => {
     const name = req.body.productName;
     const type = req.body.productType;
     const brand = req.body.productBrand;
+    const cost = req.body.productCost;
     const quantity = req.body.productQuantity;
 
     const payload = req.body;
-    console.log(req.body);
-    if(name && type && brand && quantity) {
+    if(name && type && brand && cost && quantity) {
         const product = await Product.create({
             name,
             type,
             brand,
+            cost,
             quantity
         })
         res.redirect('/products');
